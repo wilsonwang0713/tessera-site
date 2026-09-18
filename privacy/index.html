@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Tessera</title>
+<style>
+:root{color-scheme:light}
+body{margin:0;background:#F6F7F9;color:#1C2430;font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang TC","Hiragino Sans",sans-serif}
+main{max-width:720px;margin:0 auto;padding:48px 20px 96px}
+h1{font-size:28px;line-height:1.25;margin:0 0 8px}
+h2{font-size:20px;margin:36px 0 8px}
+h3{font-size:17px;margin:24px 0 6px}
+p,li{color:rgba(28,36,48,.88)}
+a{color:#1C2430;text-decoration:underline;text-underline-offset:3px}
+nav{font-size:14px;color:rgba(28,36,48,.7);margin-bottom:32px}
+nav a{margin-right:16px}
+hr{border:0;border-top:1px solid rgba(28,36,48,.12);margin:40px 0}
+footer{margin-top:64px;font-size:13px;color:rgba(28,36,48,.6)}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">Tessera</a><a href="../privacy/">Privacy Policy</a><a href="../support/">Support</a></nav>
+<h1>Privacy Policy — Tessera</h1>
+<p><strong>Last updated:</strong> 2026-09-18</p>
+<p>Tessera ("the App") is developed by Wilson Wang, an individual developer, for iOS.</p>
+<p>This policy explains what happens to your data — including the data on business cards you scan — when you use Tessera. It is written to match what the App actually does.</p>
+<p>The short version: <strong>your network stays on your phone.</strong> Your contacts, the context of how you met them, and your network graph live on your device and in your own personal iCloud account. When cloud recognition is used, a card image is sent once to be read and is never stored — not on our servers, not anywhere else we control.</p>
+<hr />
+<h2>1. There is no account</h2>
+<p>Tessera does not have user accounts, sign-in, or a login of any kind. We do not know who you are. Any subscription or one-time purchase you make is handled entirely by Apple through your Apple ID; we never see your name, email, or payment details for that purchase.</p>
+<h2>2. Where your data lives</h2>
+<ul>
+<li>All of your data — the people you've added, their business card images, your notes on where and how you met them, your tags, events, and the network graph — is stored in the App's local database on your iPhone.</li>
+<li>If you turn on iCloud sync in Settings, this same data is copied to <strong>your own private iCloud database</strong> (CloudKit private database) so it can sync across your own devices. We do not have access to your iCloud data; Apple's standard iCloud protections apply, and Apple does not give us a copy.</li>
+<li>We do not operate any database of our own that stores your contacts, cards, images, notes, or network graph. There is nothing on our servers to breach, subpoena, or sell, because it was never sent to us.</li>
+</ul>
+<h2>3. What happens when you use cloud recognition</h2>
+<p>By default, and always when you are offline, Tessera reads business cards entirely on your device using Apple's on-device text recognition (Vision framework) and, where available, on-device Foundation Models — no image or text ever leaves your phone for this path.</p>
+<p>You can optionally turn on <strong>cloud recognition</strong> for higher accuracy on difficult cards (mixed languages, unusual layouts). When you do, and only for the specific card you are scanning:</p>
+<ol>
+<li>Tessera sends a downscaled copy of the card image to our server (a Supabase Edge Function that we operate), together with an App Attest proof that the request genuinely comes from a genuine copy of this App on a genuine Apple device.</li>
+<li>Our server forwards the image to OpenAI's API, asking it to extract the printed fields (name, company, title, phone, email, etc.) into structured data, and returns that data to the App.</li>
+<li><strong>Our server does not store the image or the recognized text.</strong> It is used only in memory for that one request and then discarded. We do not log card contents, and we do not build any database of the cards that pass through this server.</li>
+<li>Our server records only a small, non-identifying usage counter for the device making the request (how many successful recognitions that device has used), so we can enforce the free lifetime allowance described in Settings and in our pricing. This counter does not contain any card content.</li>
+<li>The OpenAI API key used to call OpenAI is stored only in our server's secret configuration (Supabase secrets). It is never present in the App itself, never written to disk on your device, never included in backups, and never written to logs.</li>
+</ol>
+<p>You can turn cloud recognition off entirely at any time in Settings. When it is off, Tessera never sends any image anywhere.</p>
+<h2>4. Anti-abuse checks (App Attest and DeviceCheck)</h2>
+<p>To stop our server from being called by anything other than a genuine copy of this App, Tessera uses Apple's <strong>App Attest</strong> to prove each request comes from a real installation of Tessera on a real device, and Apple's <strong>DeviceCheck</strong> to record, at the device level, whether that device's one-time free cloud-recognition allowance has already been issued.</p>
+<p>These are <strong>device-level anti-fraud signals, not personal identifiers.</strong> They do not contain your name, email, location, or any personal information, and we do not use them to identify you as a person, to track you across apps or websites, or to build a profile of you. They exist solely to prevent free-tier abuse (for example, reinstalling the App to repeatedly claim a new free allowance).</p>
+<h2>5. About the business cards you scan — other people's personal data</h2>
+<p>A business card you scan almost always contains <strong>another person's personal data</strong> — their name, title, company, phone number, and email address. When you use Tessera to digitize someone's business card:</p>
+<ul>
+<li><strong>You are the one responsible for that data.</strong> You collected that card directly from that person in the ordinary course of a business or social introduction, and you are keeping it for your own personal use (remembering who you met and how). Tessera is a personal tool for your own record-keeping, not a shared or public directory.</li>
+<li><strong>We do not access, see, or retain that data.</strong> As described in §3, if you use cloud recognition, the image is used once to extract the printed fields and is then discarded by our server; if you use on-device recognition, it never leaves your phone at all. Either way, the data comes to rest only in your own local database and, if you enable it, your own private iCloud — never in a database we control.</li>
+<li>If someone whose card you scanned asks you to delete their information, you can do so at any time from that person's detail screen, or by using "Clear All Data" in Settings to remove everything.</li>
+</ul>
+<h2>6. What we do not do</h2>
+<ul>
+<li>We do not sell your data or any data that passes through our servers, to anyone, for any reason.</li>
+<li>We do not run advertising, and we do not use any advertising or tracking SDKs.</li>
+<li>We do not use analytics SDKs that build a behavioral profile of you across apps or websites.</li>
+<li>We do not have a social feature, a public directory, or any way for another person to see your contacts or your network graph.</li>
+</ul>
+<h2>7. Your choices and control</h2>
+<ul>
+<li><strong>Turn off cloud recognition</strong> at any time in Settings; on-device recognition keeps working fully offline.</li>
+<li><strong>Export everything</strong> at any time: vCard, CSV, JSON, or a complete backup zip that includes your original card images. This is a free feature, not a paid one — your data is yours to take with you regardless of which tier you're on.</li>
+<li><strong>Delete anything</strong>: individual cards or people go to a 30-day "Recently Deleted" area before permanent removal, and you can permanently erase everything at once from Settings (this requires typing a confirmation phrase to prevent accidental loss).</li>
+<li><strong>Turn off iCloud sync</strong> at any time; your data then stays local to that device only.</li>
+</ul>
+<h2>8. Permissions the App may request</h2>
+<p>Tessera requests the following iOS permissions, each tied to a specific feature, requested only when you first use that feature (see <code>PrivacyInfo.xcprivacy</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>Why</th>
+<th>Optional?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera</td>
+<td>To scan business cards</td>
+<td>Required for scanning; you can also import from Photos</td>
+</tr>
+<tr>
+<td>Photos</td>
+<td>To import existing card photos instead of scanning live</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Contacts</td>
+<td>To save a person to your iOS Address Book when you tap "Add to Contacts"</td>
+<td>Optional, per action</td>
+</tr>
+<tr>
+<td>Calendar (EventKit)</td>
+<td>To import an event's name/date/place when you create an "event" in Tessera</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<h2>9. Children</h2>
+<p>Tessera is not directed at children and is not designed to collect data from children. We do not knowingly collect information from anyone, since the App itself does not collect any personal information about its own users at all (see §1).</p>
+<h2>10. Security</h2>
+<ul>
+<li>All network traffic to our server uses TLS.</li>
+<li>Our server validates App Attest assertions before processing any recognition request, to prevent misuse of the recognition service by anything other than the genuine App.</li>
+<li>The OpenAI API key used server-side is never embedded in the App binary and cannot be extracted from it.</li>
+</ul>
+<h2>11. Changes to this policy</h2>
+<p>If we change what data Tessera or our server handles, we will update this document and the in-App "what's new" notes, and — for any material change to how card images are handled — ask for your consent again before the change takes effect, as we do the first time you enable cloud recognition.</p>
+<h2>12. Contact</h2>
+<p>Questions about this policy or your data: <strong>wilson07131@gmail.com</strong>.</p>
+<hr />
+<h1>隱私權政策 — 緣 Tessera（繁體中文版）</h1>
+<p><strong>最後更新：</strong> 2026-09-18</p>
+<p>緣 Tessera（以下稱「本 App」）由個人開發者 Wilson Wang 開發，平台為 iOS。</p>
+<p>本政策說明你使用緣 Tessera 時——包括你掃描的名片上的資料——會發生什麼事。內容依照本 App 實際的資料處理方式如實撰寫。</p>
+<p>一句話：<strong>你的人脈留在你的手機。</strong> 你的聯絡人、認識脈絡與人脈圖，留在你的裝置與你自己的 iCloud 帳號裡；使用雲端辨識時，名片影像只會被送去辨識一次，我們不會留存——不留在我們的伺服器，也不留在我們控制的任何地方。</p>
+<h2>1. 沒有帳號系統</h2>
+<p>緣 Tessera 沒有帳號、登入或任何形式的會員機制。我們不知道你是誰。任何訂閱或買斷購買都完全由 Apple 透過你的 Apple ID 處理；我們看不到你的姓名、Email 或付款資訊。</p>
+<h2>2. 你的資料存放在哪裡</h2>
+<ul>
+<li>你的所有資料——你新增的人、他們的名片影像、你記下的認識脈絡、標籤、活動、人脈圖——都存在本 App 裝置端的資料庫裡。</li>
+<li>若你在設定頁開啟 iCloud 同步，同一份資料會被複製到<strong>你自己的私有 iCloud 資料庫</strong>（CloudKit 私有庫），以便在你自己的裝置間同步。我們無法存取你的 iCloud 資料；適用 Apple 標準的 iCloud 保護機制，Apple 不會把你的資料交給我們。</li>
+<li>我們沒有自己的資料庫來存放你的聯絡人、名片、影像、備註或人脈圖。因為這些資料從未被送到我們手上，所以也沒有任何東西會被我們洩漏、被要求提供，或被出售。</li>
+</ul>
+<h2>3. 使用雲端辨識時會發生什麼事</h2>
+<p>預設情況下，以及只要你離線，緣 Tessera 一律用裝置端辨識（Apple Vision 文字辨識，加上裝置支援時的 Foundation Models 精修）處理名片——完全在你的手機上完成，沒有任何影像或文字離開手機。</p>
+<p>你可以選擇為較難辨識的名片（混合語言、特殊版面）開啟<strong>雲端辨識</strong>。開啟後，僅針對你正在掃描的那張名片：</p>
+<ol>
+<li>緣會把縮小後的名片影像，連同一份 App Attest 證明（證明這次請求真的來自一台真實 Apple 裝置上、真實安裝的本 App），送到我們自己維運的伺服器（一個 Supabase Edge Function）。</li>
+<li>我們的伺服器把影像轉送給 OpenAI 的 API，要求辨識出結構化欄位（姓名、公司、職稱、電話、Email 等），再把結果回傳給 App。</li>
+<li><strong>我們的伺服器不會留存影像或辨識出的文字。</strong> 影像只在處理那一次請求時存在記憶體中，處理完就捨棄。我們不會記錄名片內容，也不會建立任何存放名片內容的資料庫。</li>
+<li>我們的伺服器只會為發出請求的裝置記錄一個小小的、不具識別性的用量計數（這台裝置成功辨識過幾次），用來核算設定頁與定價中所述的終身免費額度。這個計數不包含任何名片內容。</li>
+<li>用來呼叫 OpenAI 的金鑰只存在我們伺服器的密鑰設定（Supabase secrets）裡。它從不出現在 App 本體中，不會寫進你裝置上的任何檔案，不會出現在備份裡，也不會出現在任何 log 裡。</li>
+</ol>
+<p>你可以隨時在設定頁完全關閉雲端辨識。關閉後，緣不會把任何影像送到任何地方。</p>
+<h2>4. 防濫用機制（App Attest 與 DeviceCheck）</h2>
+<p>為了防止我們的伺服器被非本 App 的其他程式呼叫，緣使用 Apple 的 <strong>App Attest</strong> 證明每次請求都來自一台真實裝置上、真實安裝的緣，並使用 Apple 的 <strong>DeviceCheck</strong> 在裝置層級記錄「這台裝置的終身免費雲端辨識額度是否已經核發過」。</p>
+<p>這些是<strong>裝置層級的防濫用旗標，不是個人識別資訊。</strong> 它們不包含你的姓名、Email、位置或任何個人資料，我們也不會用它們來識別你這個人、跨 App 或跨網站追蹤你，或建立你的個人檔案。它們唯一的用途是防止免費層被繞過（例如：重灌 App 想重複領取免費額度）。</p>
+<h2>5. 關於你掃描的名片——那是第三人的個人資料</h2>
+<p>你掃描的名片幾乎一定包含<strong>另一個人的個人資料</strong>——他的姓名、職稱、公司、電話、Email。當你用緣數位化某人的名片時：</p>
+<ul>
+<li><strong>你，是那份資料的責任人。</strong> 那張名片是你在正常的商務或社交場合中，直接從對方手上拿到的，你保留它是為了你自己記錄「認識了誰、怎麼認識的」。緣是給你個人使用的記錄工具，不是共享或公開的名錄。</li>
+<li><strong>我們不會存取、看到或留存那份資料。</strong> 如同 §3 所述：若你使用雲端辨識，影像只會被用一次來抽取欄位，之後由我們的伺服器捨棄；若你使用裝置端辨識，資料完全不會離開你的手機。無論哪一種，資料最終只會落在你自己裝置端的資料庫，以及（若你開啟）你自己的私有 iCloud——絕不會落在我們控制的資料庫裡。</li>
+<li>若被你掃描的對象要求你刪除他的資料，你可以隨時從該人的詳情頁刪除，或在設定頁使用「清除全部資料」移除所有內容。</li>
+</ul>
+<h2>6. 我們不做的事</h2>
+<ul>
+<li>我們不會出售你的資料，或任何經過我們伺服器的資料，給任何人、任何理由。</li>
+<li>我們不投放廣告，也不使用任何廣告或追蹤 SDK。</li>
+<li>我們不使用會在跨 App、跨網站建立你行為輪廓的分析 SDK。</li>
+<li>我們沒有社群功能、沒有公開名錄，也沒有任何方式讓別人看到你的聯絡人或你的人脈圖。</li>
+</ul>
+<h2>7. 你可以掌控的事</h2>
+<ul>
+<li><strong>隨時關閉雲端辨識</strong>；裝置端辨識仍會完全離線繼續運作。</li>
+<li><strong>隨時匯出全部資料</strong>：vCard、CSV、JSON，或含原始名片影像的完整備份 zip。這是免費功能，不是付費功能——不論你用哪個方案，你的資料都是你的，可以隨時帶走。</li>
+<li><strong>刪除任何內容</strong>：單張名片或單個人會先進入 30 天的「最近刪除」，之後才永久移除；你也可以在設定頁一次性永久清除全部資料（需輸入確認字樣以避免誤刪）。</li>
+<li><strong>隨時關閉 iCloud 同步</strong>；關閉後資料只留在該裝置本機。</li>
+</ul>
+<h2>8. App 會請求的權限</h2>
+<p>緣會請求以下 iOS 權限，每一項都對應到特定功能，且只在你第一次使用該功能時才會詢問（詳見 <code>PrivacyInfo.xcprivacy</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>權限</th>
+<th>用途</th>
+<th>是否必要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相機</td>
+<td>掃描名片</td>
+<td>掃描功能需要；也可從相簿匯入</td>
+</tr>
+<tr>
+<td>照片</td>
+<td>從相簿匯入既有的名片照片，取代現場拍攝</td>
+<td>選用</td>
+</tr>
+<tr>
+<td>聯絡人</td>
+<td>你點「存到通訊錄」時，把這個人存進 iOS 通訊錄</td>
+<td>選用，依動作而定</td>
+</tr>
+<tr>
+<td>行事曆（EventKit）</td>
+<td>你在緣建立「活動」時，匯入行事曆事件的名稱／日期／地點</td>
+<td>選用</td>
+</tr>
+</tbody>
+</table>
+<h2>9. 兒童</h2>
+<p>緣 Tessera 並非針對兒童設計，也不會刻意收集兒童的資料。由於本 App 本身完全不收集使用者的任何個人資料（見 §1），因此也不存在「我們知情收集了兒童資料」的情況。</p>
+<h2>10. 安全性</h2>
+<ul>
+<li>所有與我們伺服器的網路傳輸都使用 TLS 加密。</li>
+<li>我們的伺服器在處理任何辨識請求前，會先驗證 App Attest 證明，防止辨識服務被非本 App 的其他程式濫用。</li>
+<li>伺服器端使用的 OpenAI 金鑰從不嵌入 App 二進位檔，無法從 App 中被反解出來。</li>
+</ul>
+<h2>11. 政策變更</h2>
+<p>若緣 Tessera 或我們的伺服器所處理的資料範圍有變動，我們會更新本文件與 App 內的「版本說明」；若涉及名片影像處理方式的重大變更，我們會像第一次開啟雲端辨識時一樣，重新徵求你的同意後才會生效。</p>
+<h2>12. 聯絡方式</h2>
+<p>對本政策或你的資料有任何問題：<strong>wilson07131@gmail.com</strong>。</p>
+<footer>© 2026 Wilson Wang · Tessera – Business Cards</footer>
+</main>
+</body>
+</html>
